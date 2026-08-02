@@ -9,6 +9,15 @@ import java.util.Set;
 public interface Configuration extends ConfigurationListenerAware {
 
     /**
+     * Returns the configuration instance.
+     *
+     * @return a non-null instance
+     */
+    static Configuration get() {
+        return ConfigurationService.getInstance().getConfiguration();
+    }
+
+    /**
      * Returns all available keys in the configuration (or subset).
      *
      * @return a non-null instance

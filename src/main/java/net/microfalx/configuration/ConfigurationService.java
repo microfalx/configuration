@@ -44,6 +44,10 @@ public class ConfigurationService implements Service, Initializable {
 
     private volatile ConfigurationSource configurationSource = new JvmConfigurationSource();
 
+    public static ConfigurationService getInstance() {
+        return Service.lookup(ConfigurationService.class);
+    }
+
     /**
      * Returns the registry used to store the configuration.
      *

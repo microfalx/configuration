@@ -65,7 +65,7 @@ public class ConfigurationService implements Service, Initializable {
      *
      * @return a non-null instance
      */
-    public ConfigurationSource getConfigurationSource() {
+    public ConfigurationSource getSource() {
         return configurationSource;
     }
 
@@ -74,7 +74,7 @@ public class ConfigurationService implements Service, Initializable {
      *
      * @param configurationSource the new source.
      */
-    public void setConfigurationSource(ConfigurationSource configurationSource) {
+    public void setSource(ConfigurationSource configurationSource) {
         requireNonNull(configurationSource);
         this.configurationSource = configurationSource;
     }

@@ -2,10 +2,10 @@ package net.microfalx.configuration;
 
 import lombok.Getter;
 import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 import net.microfalx.lang.*;
 import net.microfalx.lang.annotation.Provider;
 import net.microfalx.lang.convert.Types;
+import net.microfalx.lang.service.Logger;
 import net.microfalx.lang.service.Service;
 import net.microfalx.registry.Data;
 import net.microfalx.registry.Registry;
@@ -29,9 +29,10 @@ import static net.microfalx.lang.StringUtils.*;
 import static net.microfalx.lang.TimeUtils.millisSince;
 
 @SuppressWarnings("unchecked")
-@Slf4j
 @Provider
 public class ConfigurationService implements Service, Initializable {
+
+    private static final Logger LOGGER = Logger.get(ConfigurationService.class);
 
     private Configuration configuration;
 
@@ -257,7 +258,7 @@ public class ConfigurationService implements Service, Initializable {
                 LOGGER.atError().setCause(e).log("Failed to register metadata {} in registry", metadata.getFullKey());
             }
         }
-        LOGGER.info("Registered {} new configuration entries in registry", registered);
+        LOGGER.debug("Registered {} new configuration entries in registry", registered);
     }
 
     private boolean registerMetadata(Registry registry, Metadata metadata) {

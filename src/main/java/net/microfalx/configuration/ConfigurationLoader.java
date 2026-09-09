@@ -1,8 +1,8 @@
 package net.microfalx.configuration;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import net.microfalx.lang.EnumUtils;
+import net.microfalx.lang.service.Logger;
 import net.microfalx.resource.Resource;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -16,8 +16,9 @@ import static net.microfalx.configuration.ConfigurationUtils.ROOT_METADATA_ID;
 import static net.microfalx.lang.StringUtils.isNotEmpty;
 import static net.microfalx.lang.XmlUtils.*;
 
-@Slf4j
 class ConfigurationLoader {
+
+    private static final Logger LOGGER = Logger.get(ConfigurationLoader.class);
 
     @Getter
     private int resourceCount;
@@ -56,7 +57,7 @@ class ConfigurationLoader {
         } catch (IOException e) {
             LOGGER.error("Failed to discover configuration descriptors", e);
         }
-        LOGGER.info("Discovered {} groups and {} items from descriptors", groupCount, itemCount);
+        LOGGER.debug("Discovered {} groups and {} items from descriptors", groupCount, itemCount);
     }
 
     void load(Resource resource) throws IOException {

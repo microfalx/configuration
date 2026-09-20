@@ -7,6 +7,7 @@ import net.microfalx.lang.annotation.Provider;
 import net.microfalx.lang.convert.Types;
 import net.microfalx.lang.service.Logger;
 import net.microfalx.lang.service.Service;
+import net.microfalx.lang.service.ServiceLocator;
 import net.microfalx.registry.Data;
 import net.microfalx.registry.Registry;
 import net.microfalx.threadpool.ThreadPool;
@@ -216,6 +217,7 @@ public class ConfigurationService implements Service, Initializable {
     String getFromRegistry(Configuration configuration, String key, String defaultValue) {
         String value = getFromCache(key);
         if (isEmpty(value)) {
+            ServiceLocator.report(this, Metric.EVENT_OUT);
             String registryKey = getRegistryPath(key);
             Optional<Data> data = getRegistry().get(registryKey);
             if (data.isPresent()) {
@@ -232,6 +234,7 @@ public class ConfigurationService implements Service, Initializable {
     }
 
     void setToRegistry(Configuration configuration, String key, Object value) {
+        ServiceLocator.report(this, Metric.EVENT_IN);
         String registryKey = getRegistryPath(key);
         Data data = getRegistry().getOrCreate(registryKey);
         String previousValue = ObjectUtils.toString(data.get());
@@ -272,6 +275,7 @@ public class ConfigurationService implements Service, Initializable {
         value = isSecret && !EncryptionUtils.isEncrypted(value) ? EncryptionUtils.encrypt(value) : value;
         data.set(value);
         registry.set(data);
+        ServiceLocator.report(this, Metric.SUCCESS);
         return true;
     }
 

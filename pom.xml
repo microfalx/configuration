@@ -67,6 +67,7 @@
         <java.version>17</java.version>
         <bom.version>1.0.23</bom.version>
         <lang.version>1.0.6-SNAPSHOT</lang.version>
+        <service.version>1.0.0-SNAPSHOT</service.version>
         <threadpool.version>1.0.2-SNAPSHOT</threadpool.version>
         <resource.version>1.0.4-SNAPSHOT</resource.version>
         <registry.version>1.0.0-SNAPSHOT</registry.version>
@@ -100,6 +101,14 @@
                 <groupId>net.microfalx</groupId>
                 <artifactId>threadpool</artifactId>
                 <version>${threadpool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.microfalx.service</groupId>
+                <artifactId>service-bom</artifactId>
+                <version>${service.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <dependency>
@@ -148,6 +157,11 @@
         <dependency>
             <groupId>net.microfalx.resource</groupId>
             <artifactId>resource-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.microfalx.service</groupId>
+            <artifactId>service-core</artifactId>
         </dependency>
 
         <dependency>

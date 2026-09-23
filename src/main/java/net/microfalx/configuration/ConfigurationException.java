@@ -1,6 +1,6 @@
 package net.microfalx.configuration;
 
-import net.microfalx.lang.service.ServiceException;
+import net.microfalx.service.api.ServiceException;
 
 /**
  * Base class for all configuration exceptions.

@@ -2,7 +2,7 @@ package net.microfalx.configuration;
 
 import lombok.Getter;
 import net.microfalx.lang.EnumUtils;
-import net.microfalx.lang.service.Logger;
+import net.microfalx.service.api.Logger;
 import net.microfalx.resource.Resource;
 import org.dom4j.Document;
 import org.dom4j.Element;

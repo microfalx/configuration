@@ -5,11 +5,10 @@ import lombok.ToString;
 import net.microfalx.lang.*;
 import net.microfalx.lang.annotation.Provider;
 import net.microfalx.lang.convert.Types;
-import net.microfalx.service.api.Logger;
-import net.microfalx.service.api.Service;
-import net.microfalx.service.api.ServiceLocator;
 import net.microfalx.registry.Data;
 import net.microfalx.registry.Registry;
+import net.microfalx.service.api.Logger;
+import net.microfalx.service.api.Service;
 import net.microfalx.threadpool.ThreadPool;
 
 import java.time.Duration;
@@ -182,11 +181,18 @@ public class ConfigurationService implements Service, Initializable {
         fireConfigurationEvent(event);
     }
 
+    /**
+     * Registers (asynchronously) all metadata in the registry.
+     */
+    public void registerMetadata() {
+        threadPool.execute(this::doRegisterMetadata);
+    }
+
     @Override
     public void initialize(Object... context) {
         configuration = new SubsetImpl(this, null, EMPTY_STRING, "Root");
         loadMetadata();
-        threadPool.execute(this::registerMetadata);
+        registerMetadata();
     }
 
     /**
@@ -251,7 +257,7 @@ public class ConfigurationService implements Service, Initializable {
                 loader.getItemCount(), loader.getResourceCount());
     }
 
-    private void registerMetadata() {
+    private void doRegisterMetadata() {
         Registry registry = getRegistry();
         int registered = 0;
         for (Metadata metadata : metadatas.values()) {

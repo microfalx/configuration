@@ -192,7 +192,6 @@ public class ConfigurationService implements Service, Initializable {
     public void initialize(Object... context) {
         configuration = new SubsetImpl(this, null, EMPTY_STRING, "Root");
         loadMetadata();
-        registerMetadata();
     }
 
     /**
